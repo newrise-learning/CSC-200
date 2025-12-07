@@ -2,7 +2,4 @@ Instructor Name: Phillip Madden (Phil)
 Email: symbolicon@live.com
 
 Course: C# Programming with Visual Studio 2017
-Course Repository: https://github.com/NewriseLearning/CSC-200
-
-
-
+Course Repository: https://github.com/newrise-learning/CSC-200
