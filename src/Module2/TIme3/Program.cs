@@ -47,6 +47,16 @@ namespace TIme3 {
 			Console.WriteLine(h[t1]);
 			Console.WriteLine(h[t2]);
 			Console.WriteLine(h[t3]);
+
+			//	Everything in .NET is an object or can
+			//	be boxed into an object
+			object o1 = "Hello!";
+			object o2 = t1;
+			Time t4 = t1.Clone();
+			if (t1 is ICloneable) {
+				object o3 = ((ICloneable)t1).Clone();
+			}
+
 		}
 	}
 }

@@ -1,19 +1,45 @@
 ﻿using System;
 
 namespace MyLib1 {
-	public class Time {
+	public class Time : ICloneable,
+			IComparable,
+			IComparable<Time>,
+			IComparable<int> {
+		#region consts
+		public const int MinHour = 0;
+		public const int MinMinute = 0;
+		public const int MinSecond = 0;
+		public const int MaxHour = 23;
+		public const int MaxMinute = 59;
+		public const int MaxSecond = 59;
+		#endregion
 		#region fields
+		#region object fields
 		private short hour;
 		private short minute;
 		private short second;
 		#endregion
+		#region static fields
+		public static Time Midnight {
+			get {
+				return new Time(0, 0, 0);
+			}
+		}
+		public static Time Afternoon {
+			get {
+				return new Time(12, 0, 0);
+			}
+		}
+		#endregion
+		#endregion
 		#region properties
+		#region object properties
 		public short Hour {
 			get {
 				return hour;
 			}
 			set {
-				if (value < 0 || value > 23)
+				if (value < MinHour || value > MaxHour)
 					throw new Exception("Invalid hour value.");
 				hour = value;
 			}
@@ -23,7 +49,7 @@ namespace MyLib1 {
 				return minute;
 			}
 			set {
-				if (value < 0 || value > 59)
+				if (value < MinMinute || value > MaxMinute)
 					throw new Exception("Invalid minute value.");
 				minute = value;
 			}
@@ -33,7 +59,7 @@ namespace MyLib1 {
 				return second;
 			}
 			set {
-				if (value < 0 || value > 59)
+				if (value < MinSecond || value > MaxSecond)
 					throw new Exception("Invalid second value.");
 				second = value;
 			}
@@ -53,7 +79,14 @@ namespace MyLib1 {
 			}
 		}
 		#endregion
+		#region static properties
+		//	public static readonly Time Midnight;
+		//	public static readonly Time Afternoon;
+
+		#endregion
+		#endregion
 		#region constructors
+		#region object constructors
 		public Time() {
 			var dt = DateTime.Now;
 			hour = (short)dt.Hour;
@@ -68,6 +101,13 @@ namespace MyLib1 {
 		public Time(int value) {
 			Value = value;
 		}
+		#endregion
+		#region static constructor
+		static Time() {
+			//Midnight = new Time(0, 0, 0);
+			//Afternoon = new Time(12, 0, 0);
+		}
+		#endregion
 		#endregion
 		#region methods
 		public void SetTime(short hour = 0, short minute = 0, short second = 0) {
@@ -105,6 +145,9 @@ namespace MyLib1 {
 			//	Value = Value - seconds;
 			Value -= seconds;
 		}
+		public Time Clone() {
+			return new Time(hour, minute, second);
+		}
 		#endregion
 		#region operators
 		public static Time operator +(Time obj, int seconds) {
@@ -116,10 +159,10 @@ namespace MyLib1 {
 		public static int operator -(Time obj1, Time obj2) {
 			return obj1.Value - obj2.Value;
 		}
-		public static bool operator ==(Time obj1,Time obj2) {
+		public static bool operator ==(Time obj1, Time obj2) {
 			return obj1.Value == obj2.Value;
 		}
-		public static bool operator !=(Time obj1,Time obj2) {
+		public static bool operator !=(Time obj1, Time obj2) {
 			return obj1.Value != obj2.Value;
 		}
 		public static bool operator ==(Time obj1, int value) {
@@ -172,9 +215,12 @@ namespace MyLib1 {
 					"Index out of range.");
 			}
 			set {
-				if (index == 'h') Hour = value; else
-				if (index == 'm') Minute = value; else
-				if (index == 's') Second = value; else
+				if (index == 'h') Hour = value;
+				else
+				if (index == 'm') Minute = value;
+				else
+				if (index == 's') Second = value;
+				else
 					throw new Exception(
 						"Index out of range.");
 			}
@@ -194,6 +240,40 @@ namespace MyLib1 {
 			//return hour == item.hour &&
 			//	minute == item.minute &&
 			//	second == item.second;
+		}
+		#endregion
+		#region ICloneable
+		object ICloneable.Clone() {
+			return Clone();
+		}
+		#endregion
+		#region IComparable
+		public int CompareTo(object obj) {
+			Time item = (Time)obj;
+			if (item == this) return 0;
+			int value1 = this.Value;
+			int value2 = item.Value;
+			if (value1 < value2) return -1;
+			if (value1 > value2) return +1;
+			return 0;
+		}
+		#endregion
+		#region IComparable<Time>
+		public int CompareTo(Time obj) {
+			if (obj == this) return 0;
+			int value1 = this.Value;
+			int value2 = obj.Value;
+			if (value1 < value2) return -1;
+			if (value1 > value2) return +1;
+			return 0;
+		}
+		#endregion
+		#region IComparable<int>
+		public int CompareTo(int value) {
+			int value1 = this.Value;
+			if (value1 < value) return -1;
+			if (value1 > value) return +1;
+			return 0;
 		}
 		#endregion
 	}
