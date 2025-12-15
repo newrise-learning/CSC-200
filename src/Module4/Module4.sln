@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymBank.Data", "SymBank.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB1", "DB1\DB1.csproj", "{D0A57CD2-B826-46ED-9C51-F55F0C774B28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB2", "DB2\DB2.csproj", "{AEEB8FC2-5C65-4100-AA50-952F061D382C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{D0A57CD2-B826-46ED-9C51-F55F0C774B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0A57CD2-B826-46ED-9C51-F55F0C774B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0A57CD2-B826-46ED-9C51-F55F0C774B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEEB8FC2-5C65-4100-AA50-952F061D382C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEEB8FC2-5C65-4100-AA50-952F061D382C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEEB8FC2-5C65-4100-AA50-952F061D382C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEEB8FC2-5C65-4100-AA50-952F061D382C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
