@@ -35,13 +35,26 @@ namespace SymBank.Data {
 			var dc = new SymBankDataContext();
 			//	return dc.Accounts.Single(account => account.ID == id);
 			Account item = dc.Accounts.SingleOrDefault(account => account.ID == id);
-			if (item == null) throw new Exception("Account does not exist.");
+			if (item == null) throw new Exception("Invalid account ID.");
 			return item;
 		}
 		public static List<Account> GetList() {
 			var dc = new SymBankDataContext();
 			return dc.Accounts.ToList();
 		}
+
+		//public static List<Account> GetListByName() {
+		//	var dc = new SymBankDataContext();
+		//	return dc.Accounts.OrderBy(account => account.Name).ToList();
+		//}
+
+		public static List<Account> ListByName {
+			get {
+				var dc = new SymBankDataContext();
+				return dc.Accounts.OrderBy(account => account.Name).ToList();
+			}
+		}
+
 		//public static string[] GetNameList() {
 		//	var dc = new SymBankDataContext();
 		//	return dc.Accounts
