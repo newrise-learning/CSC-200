@@ -1,20 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SymBank.Data {
 	public static class AccountService {
 		public static void Add(Account item) {
+			Thread.Sleep(12000);
 			var dc = new SymBankDataContext();
 			dc.Accounts.InsertOnSubmit(item);
 			dc.SubmitChanges();
 		}
+		public static Task AddAsync(Account item) {
+			var task = new Task(() => Add(item));
+			task.Start();
+			return task;
+		}
+
 		public static void Debit(int id, decimal amount) {
 			if (amount <= 0) throw new Exception("Invalid debit amount.");
 			var dc = new SymBankDataContext();
 			var item = dc.Accounts.Single(account => account.ID == id);
 			item.Balance += amount; dc.SubmitChanges();
 		}
+
+		public static Task DebitAsync(int id, decimal amount) {
+			var task = new Task(() => Debit(id, amount));
+			task.Start(); return task;
+		}
+
 		public static void Credit(int id, decimal amount) {
 			if (amount <= 0) throw new Exception("Invalid debit amount.");
 			var dc = new SymBankDataContext();
@@ -39,11 +54,18 @@ namespace SymBank.Data {
 			return item;
 		}
 		public static List<Account> GetList() {
+			Thread.Sleep(6000);
 			var dc = new SymBankDataContext();
 			return dc.Accounts.ToList();
 		}
 
+		public static Task<List<Account>> GetListAsync() {
+			var task = new Task<List<Account>>(() => GetList());
+			task.Start(); return task;
+		}
+
 		//public static List<Account> GetListByName() {
+
 		//	var dc = new SymBankDataContext();
 		//	return dc.Accounts.OrderBy(account => account.Name).ToList();
 		//}

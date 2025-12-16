@@ -39,15 +39,15 @@ namespace SymBank {
 			txtSourceID.Focus();
 		}
 
-		private void btnAdd_Click(object sender, EventArgs e) {
+		private async void btnAdd_Click(object sender, EventArgs e) {
 			try {
 				btnAdd.Enabled = false;
 				Account item = new Account {
-					ID = int.Parse(txtID.Text),
-					Name = txtName.Text,
-					Balance = decimal.Parse(txtBalance.Text)
+					ID = txtID.GetInt32("ID must be an integer."),
+					Name = txtName.GetNotEmpty("Name cannot be empty."),
+					Balance = txtBalance.GetDecimal("Opening balance must be a number.")
 				};
-				AccountService.Add(item);
+				await AccountService.AddAsync(item);
 				Success("Account has been added.");
 				ResetAccountForm();
 			}
@@ -135,10 +135,10 @@ namespace SymBank {
 			}
 		}
 
-		private void btnRefresh_Click(object sender, EventArgs e) {
+		private async void btnRefresh_Click(object sender, EventArgs e) {
 			try {
 				btnRefresh.Enabled = false;
-				var list = AccountService.GetList();
+				var list = await AccountService.GetListAsync();
 				grdAccounts.DataSource = list;
 			}
 			catch (Exception ex) {
